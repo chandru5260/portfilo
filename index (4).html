@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B Ramachandran — Web Developer & Network Security Enthusiast</title>
+<style>
+:root{
+  --bg:#fbfaf7;
+  --bg-soft:#f3f1ea;
+  --card:#ffffff;
+  --line:#e7e3d8;
+  --text:#262420;
+  --muted:#6b675f;
+  --grad1:#3f6f5e;   /* deep sage */
+  --grad2:#d99a5b;   /* warm clay */
+  --grad3:#7fa896;   /* soft mint */
+  --accent:#3f6f5e;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Segoe UI', Inter, Arial, sans-serif;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* top-right corner circle with profile photo */
+.corner-orb{
+  position:fixed;
+  top:-90px;
+  right:-90px;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--grad1), var(--grad2));
+  opacity:0.16;
+  z-index:0;
+  pointer-events:none;
+}
+@media (max-width:700px){ .corner-orb{ width:200px; height:200px; top:-60px; right:-60px; } }
+
+/* NAV */
+header{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 6vw;
+  background:rgba(251,250,247,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.logo{ font-weight:800; font-size:1.2rem; letter-spacing:0.3px; color:var(--grad1); }
+nav ul{list-style:none; display:flex; gap:24px;}
+nav a{ color:var(--muted); text-decoration:none; font-size:0.92rem; font-weight:600; transition:color .2s; }
+nav a:hover, nav a.active{ color:var(--grad1); }
+.nav-toggle{display:none; background:none; border:none; color:var(--text); font-size:1.6rem; cursor:pointer;}
+@media (max-width:880px){
+  nav ul{
+    position:fixed; top:60px; right:0; left:0;
+    flex-direction:column; gap:0;
+    background:var(--card);
+    border-bottom:1px solid var(--line);
+    max-height:0; overflow:hidden; transition:max-height .3s ease;
+  }
+  nav ul.open{ max-height:560px; }
+  nav ul li{ border-top:1px solid var(--line); }
+  nav a{ display:block; padding:15px 6vw; }
+  .nav-toggle{ display:block; }
+}
+
+main{ position:relative; z-index:1; }
+section{ padding:80px 6vw; max-width:1200px; margin:0 auto; scroll-margin-top:74px; }
+.eyebrow{ display:inline-block; font-size:0.76rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--grad1); margin-bottom:12px; }
+h1{ font-size:clamp(2.1rem,5vw,3.4rem); line-height:1.12; font-weight:800; }
+h2{ font-size:clamp(1.6rem,3.5vw,2.2rem); font-weight:800; margin-bottom:8px; }
+p.lead{ color:var(--muted); font-size:1.05rem; max-width:620px; margin-top:16px; line-height:1.65; }
+.accent-text{ color:var(--grad2); }
+
+/* HERO */
+#home{ min-height:86vh; display:flex; align-items:center; padding-top:40px; }
+.hero-grid{ display:grid; grid-template-columns:1.2fr 0.8fr; gap:48px; align-items:center; width:100%; }
+@media (max-width:880px){ .hero-grid{grid-template-columns:1fr; text-align:center;} .hero-grid .photo-wrap{margin:0 auto;} }
+
+.photo-wrap{
+  width:340px; height:340px; border-radius:50%; padding:10px;
+  background:linear-gradient(135deg, var(--grad1), var(--grad2));
+  margin-left:auto;
+}
+.photo-wrap img{
+  width:100%; height:100%; object-fit:cover; object-position:center 18%; border-radius:50%;
+  border:6px solid var(--bg); display:block;
+}
+
+.btn-row{ display:flex; gap:14px; margin-top:28px; flex-wrap:wrap; }
+@media (max-width:880px){ .btn-row{ justify-content:center; } }
+.btn{
+  padding:13px 26px; border-radius:50px; font-weight:700; font-size:0.92rem;
+  text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+  transition:transform .2s, box-shadow .2s; border:1px solid transparent;
+}
+.btn:hover{ transform:translateY(-2px); }
+.btn-primary{ background:var(--grad1); color:#fff; box-shadow:0 8px 22px rgba(63,111,94,0.25); }
+.btn-ghost{ border:1px solid var(--line); color:var(--text); background:var(--card); }
+.btn-whatsapp{ background:#1ea656; color:#fff; box-shadow:0 8px 22px rgba(30,166,86,0.25); }
+
+/* CARDS */
+.grid{ display:grid; gap:22px; margin-top:36px; }
+.grid.cols-3{ grid-template-columns:repeat(3,1fr); }
+.grid.cols-4{ grid-template-columns:repeat(4,1fr); }
+@media (max-width:900px){ .grid.cols-3, .grid.cols-4{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:560px){ .grid.cols-3, .grid.cols-4{ grid-template-columns:1fr; } }
+
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:14px;
+  padding:26px; transition:transform .25s, box-shadow .25s, border-color .25s;
+}
+.card:hover{ transform:translateY(-5px); border-color:var(--grad3); box-shadow:0 14px 30px rgba(63,111,94,0.1); }
+.card .icon{
+  width:44px; height:44px; border-radius:10px; margin-bottom:14px;
+  background:var(--bg-soft); display:flex; align-items:center; justify-content:center; font-size:1.25rem;
+}
+.card h3{ font-size:1.02rem; margin-bottom:6px; }
+.card p{ color:var(--muted); font-size:0.9rem; line-height:1.55; }
+.card a.proj-link{ display:inline-block; margin-top:10px; font-size:0.85rem; color:var(--grad1); font-weight:700; text-decoration:none; }
+
+/* SKILL BARS */
+.skill{ margin-bottom:16px; }
+.skill-top{ display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:6px; color:var(--muted); }
+.skill-track{ height:8px; background:var(--bg-soft); border-radius:6px; overflow:hidden; border:1px solid var(--line); }
+.skill-fill{ height:100%; border-radius:6px; background:linear-gradient(90deg,var(--grad1),var(--grad3)); }
+
+/* TIMELINE */
+.timeline{ position:relative; margin-top:36px; padding-left:28px; border-left:2px solid var(--line); }
+.t-item{ position:relative; margin-bottom:36px; }
+.t-item::before{
+  content:''; position:absolute; left:-35px; top:4px; width:13px; height:13px; border-radius:50%;
+  background:var(--grad2); box-shadow:0 0 0 4px var(--bg);
+}
+.t-item .date{ font-size:0.78rem; color:var(--grad1); font-weight:700; letter-spacing:1px; }
+.t-item h3{ margin:6px 0; }
+.t-item p{ color:var(--muted); font-size:0.92rem; }
+
+/* SINGLE TESTIMONIAL */
+.review-card{
+  margin-top:36px; padding:36px; border-radius:16px; background:var(--card);
+  border:1px solid var(--line); max-width:680px;
+}
+.review-card blockquote{ font-size:1.1rem; line-height:1.6; color:var(--text); }
+.review-card .who{ margin-top:18px; color:var(--grad1); font-weight:700; }
+.review-card .role{ color:var(--muted); font-size:0.85rem; }
+
+/* HIRE */
+.hire-box{
+  margin-top:36px; padding:42px; border-radius:18px;
+  background:var(--bg-soft); border:1px solid var(--line); text-align:center;
+}
+.whatsapp-number{ font-size:1.3rem; font-weight:800; letter-spacing:0.5px; margin:12px 0; color:#1ea656; }
+
+footer{
+  border-top:1px solid var(--line); padding:30px 6vw; text-align:center;
+  color:var(--muted); font-size:0.84rem; position:relative; z-index:1;
+}
+footer a{ color:var(--grad1); text-decoration:none; }
+</style>
+</head>
+<body>
+
+<div class="corner-orb"></div>
+
+<header>
+  <div class="logo">B. RAMACHANDRAN</div>
+  <button class="nav-toggle" id="navToggle">&#9776;</button>
+  <nav>
+    <ul id="navList">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#initiatives">Initiatives</a></li>
+      <li><a href="#hobbies">Hobbies</a></li>
+      <li><a href="#reviews">Client Review</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#hire">Hire Me</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+<!-- HOME -->
+<section id="home">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow">Freelance Web Developer • Cyber Security Researcher</span>
+      <h1>Hi, I'm Ramachandran —<br>I build <span class="accent-text">responsive, secure</span> websites.</h1>
+      <p class="lead">Based in Tenkasi, Tamil Nadu. Skilled in full-stack web development, computer networking and cryptography — I create clean, responsive websites and apply a security-first mindset to every build.</p>
+      <div class="btn-row">
+        <a href="#hire" class="btn btn-primary">Hire Me</a>
+        <a href="https://wa.me/919361357503" target="_blank" class="btn btn-whatsapp">WhatsApp Me</a>
+        <a href="#projects" class="btn btn-ghost">View Work</a>
+      </div>
+    </div>
+    <div class="photo-wrap">
+      <img src="profile.jpg" alt="B Ramachandran">
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <span class="eyebrow">About</span>
+  <h2>Who I am</h2>
+  <p class="lead">I'm B Ramachandran, a graduate with a Bachelor's degree in Information Technology (CGPA 7.7) from Tenkasi, Tamil Nadu. I'm skilled in Computer Networks, Cryptography, Python, Linux and full-stack web development, and proficient with Nmap and Wireshark for network analysis. I'm looking to enhance digital security and grow my cybersecurity knowledge while applying my skills to real-world challenges.</p>
+  <div class="grid cols-3">
+    <div class="card"><div class="icon">🎓</div><h3>Education</h3><p>Bachelor's degree in Information Technology, CGPA 7.7.</p></div>
+    <div class="card"><div class="icon">💻</div><h3>Internship</h3><p>Completed a Website Development internship building responsive, cross-browser pages with HTML, CSS and JavaScript.</p></div>
+    <div class="card"><div class="icon">🏅</div><h3>Certification</h3><p>Full Stack Web Development Certification.</p></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <span class="eyebrow">Projects</span>
+  <h2>Selected Work</h2>
+  <p class="lead">A few projects I've designed and developed as a freelance web developer.</p>
+  <div class="grid cols-3">
+    <div class="card">
+      <div class="icon">🏗️</div>
+      <h3>Aligned Rebar</h3>
+      <p>Created and developed alignedrebar.com from the ground up, focused on responsive design and a smooth user experience.</p>
+      <a class="proj-link" href="https://alignedrebar.com/" target="_blank">alignedrebar.com →</a>
+    </div>
+    <div class="card">
+      <div class="icon">✈️</div>
+      <h3>Travel Website</h3>
+      <p>Currently building a travel website using modern web technologies for a responsive, interactive user experience.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🌐</div>
+      <h3>Responsive Web Pages</h3>
+      <p>Internship project: designed and built responsive web pages with HTML, CSS and JavaScript, tested for cross-browser compatibility.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <span class="eyebrow">Skills</span>
+  <h2>Technical Skills</h2>
+  <div class="hero-grid" style="align-items:start; grid-template-columns:1fr;">
+    <div>
+      <div class="skill"><div class="skill-top"><span>Computer Networking</span></div><div class="skill-track"><div class="skill-fill" style="width:90%"></div></div></div>
+      <div class="skill"><div class="skill-top"><span>Cryptography</span></div><div class="skill-track"><div class="skill-fill" style="width:82%"></div></div></div>
+      <div class="skill"><div class="skill-top"><span>Python Programming</span></div><div class="skill-track"><div class="skill-fill" style="width:85%"></div></div></div>
+      <div class="skill"><div class="skill-top"><span>Linux Administration</span></div><div class="skill-track"><div class="skill-fill" style="width:80%"></div></div></div>
+      <div class="skill"><div class="skill-top"><span>Network Scanning (Nmap & Wireshark)</span></div><div class="skill-track"><div class="skill-fill" style="width:88%"></div></div></div>
+      <div class="skill"><div class="skill-top"><span>HTML, CSS & JavaScript</span></div><div class="skill-track"><div class="skill-fill" style="width:95%"></div></div></div>
+      <div class="skill"><div class="skill-top"><span>Full Stack Development</span></div><div class="skill-track"><div class="skill-fill" style="width:88%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INITIATIVES -->
+<section id="initiatives">
+  <span class="eyebrow">Initiatives</span>
+  <h2>What I've Driven</h2>
+  <div class="grid cols-3">
+    <div class="card"><div class="icon">🏗️</div><h3>Aligned Rebar Website</h3><p>As a freelance web developer, I created and developed alignedrebar.com, focusing on responsive design and improving overall user experience.</p></div>
+    <div class="card"><div class="icon">✈️</div><h3>Travel Website (Ongoing)</h3><p>Currently implementing modern web technologies to build a responsive and interactive travel website.</p></div>
+    <div class="card"><div class="icon">🔐</div><h3>Cybersecurity Growth</h3><p>Continuously expanding my cybersecurity knowledge through network scanning and analysis practice with Nmap and Wireshark.</p></div>
+  </div>
+</section>
+
+<!-- HOBBIES -->
+<section id="hobbies">
+  <span class="eyebrow">Hobbies</span>
+  <h2>Beyond the Code</h2>
+  <div class="grid cols-4">
+    <div class="card"><div class="icon">🖥️</div><h3>Exploring Tech</h3><p>Learning new tools in networking & security.</p></div>
+    <div class="card"><div class="icon">📈</div><h3>Stock Analytics</h3><p>Investing in good companies and analyzing stock market trends.</p></div>
+    <div class="card"><div class="icon">🎧</div><h3>Music</h3><p>Listening while coding.</p></div>
+    <div class="card"><div class="icon">📖</div><h3>Reading</h3><p>Tech blogs and security write-ups.</p></div>
+  </div>
+</section>
+
+<!-- CLIENT REVIEW (1 only) -->
+<section id="reviews">
+  <span class="eyebrow">Client Review</span>
+  <h2>What a Client Says</h2>
+  <div class="review-card">
+    <blockquote>"Ramachandran built our website exactly the way we wanted — responsive, fast, and easy to use. Great communication throughout the project."</blockquote>
+    <div class="who">Aligned Rebar</div>
+    <div class="role">alignedrebar.com</div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <span class="eyebrow">Experience</span>
+  <h2>My Journey</h2>
+  <div class="timeline">
+    <div class="t-item"><div class="date">Ongoing</div><h3>Cyber Security Researcher</h3><p>Exploring computer networks, cryptography and network scanning with Nmap & Wireshark to deepen my cybersecurity knowledge and apply it to real-world challenges.</p></div>
+    <div class="t-item"><div class="date">Ongoing</div><h3>Freelance Website Developer</h3><p>Specializing in HTML, CSS, JavaScript and full-stack development, creating responsive, dynamic websites and applications.</p></div>
+    <div class="t-item"><div class="date">Completed</div><h3>Website Development Internship</h3><p>Designed and built responsive web pages using HTML, CSS and JavaScript, ensuring compatibility across different browsers.</p></div>
+    <div class="t-item"><div class="date">Completed</div><h3>Full Stack Web Development Certification</h3><p>Certified in full-stack web development practices and tools.</p></div>
+  </div>
+</section>
+
+<!-- HIRE -->
+<section id="hire">
+  <span class="eyebrow">Hire Me</span>
+  <h2>Let's Build Something Great</h2>
+  <div class="hire-box">
+    <p class="lead" style="margin:0 auto;">Have a project in mind? Message me directly on WhatsApp and let's talk about it.</p>
+    <div class="whatsapp-number">📞 +91 93613 57503</div>
+    <div class="btn-row" style="justify-content:center;">
+      <a href="https://wa.me/919361357503?text=Hi!%20I%20want%20to%20hire%20you%20for%20a%20website%20project." target="_blank" class="btn btn-whatsapp">Chat on WhatsApp</a>
+      <a href="mailto:b.ramachandran1234@gmail.com" class="btn btn-ghost">Email Me</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © 2026 B Ramachandran. Tenkasi, Tamil Nadu, India. | WhatsApp: <a href="https://wa.me/919361357503" target="_blank">+91 93613 57503</a> | <a href="mailto:b.ramachandran1234@gmail.com">b.ramachandran1234@gmail.com</a>
+</footer>
+
+<script>
+document.getElementById('navToggle').addEventListener('click', ()=>{
+  document.getElementById('navList').classList.toggle('open');
+});
+document.querySelectorAll('nav a').forEach(a=>{
+  a.addEventListener('click', ()=> document.getElementById('navList').classList.remove('open'));
+});
+const sections = document.querySelectorAll('main section');
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll', ()=>{
+  let current='';
+  sections.forEach(s=>{
+    if(window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+  });
+  navLinks.forEach(l=>{
+    l.classList.toggle('active', l.getAttribute('href') === '#'+current);
+  });
+});
+</script>
+
+</body>
+</html>
